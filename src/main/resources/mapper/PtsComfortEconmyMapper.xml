@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pub.dao.PtsComfortEconmyMapper" >
+  <resultMap id="BaseResultMap" type="com.pub.entity.PtsComfortEconmy" >
+    <result column="id" property="id" jdbcType="VARCHAR" />
+    <result column="comfort" property="comfort" jdbcType="VARCHAR" />
+    <result column="peak_load_condition" property="peakLoadCondition" jdbcType="VARCHAR" />
+    <result column="average_full_load_operation" property="averageFullLoadOperation" jdbcType="VARCHAR" />
+    <result column="average_passenger_fares" property="averagePassengerFares" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="fill_time" property="fillTime" jdbcType="TIMESTAMP" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, comfort, peak_load_condition, average_full_load_operation, average_passenger_fares, 
+    user_id, fill_time, remark
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.pub.entity.PtsComfortEconmyExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from pts_comfort_econmy
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.pub.entity.PtsComfortEconmyExample" >
+    delete from pts_comfort_econmy
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.pub.entity.PtsComfortEconmy" >
+    insert into pts_comfort_econmy (id, comfort, peak_load_condition, 
+      average_full_load_operation, average_passenger_fares, 
+      user_id, fill_time, remark
+      )
+    values (#{id,jdbcType=VARCHAR}, #{comfort,jdbcType=VARCHAR}, #{peakLoadCondition,jdbcType=VARCHAR}, 
+      #{averageFullLoadOperation,jdbcType=VARCHAR}, #{averagePassengerFares,jdbcType=VARCHAR}, 
+      #{userId,jdbcType=VARCHAR}, #{fillTime,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.pub.entity.PtsComfortEconmy" >
+    insert into pts_comfort_econmy
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="comfort != null" >
+        comfort,
+      </if>
+      <if test="peakLoadCondition != null" >
+        peak_load_condition,
+      </if>
+      <if test="averageFullLoadOperation != null" >
+        average_full_load_operation,
+      </if>
+      <if test="averagePassengerFares != null" >
+        average_passenger_fares,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="fillTime != null" >
+        fill_time,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="comfort != null" >
+        #{comfort,jdbcType=VARCHAR},
+      </if>
+      <if test="peakLoadCondition != null" >
+        #{peakLoadCondition,jdbcType=VARCHAR},
+      </if>
+      <if test="averageFullLoadOperation != null" >
+        #{averageFullLoadOperation,jdbcType=VARCHAR},
+      </if>
+      <if test="averagePassengerFares != null" >
+        #{averagePassengerFares,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="fillTime != null" >
+        #{fillTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.pub.entity.PtsComfortEconmyExample" resultType="java.lang.Integer" >
+    select count(*) from pts_comfort_econmy
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update pts_comfort_econmy
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.comfort != null" >
+        comfort = #{record.comfort,jdbcType=VARCHAR},
+      </if>
+      <if test="record.peakLoadCondition != null" >
+        peak_load_condition = #{record.peakLoadCondition,jdbcType=VARCHAR},
+      </if>
+      <if test="record.averageFullLoadOperation != null" >
+        average_full_load_operation = #{record.averageFullLoadOperation,jdbcType=VARCHAR},
+      </if>
+      <if test="record.averagePassengerFares != null" >
+        average_passenger_fares = #{record.averagePassengerFares,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fillTime != null" >
+        fill_time = #{record.fillTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update pts_comfort_econmy
+    set id = #{record.id,jdbcType=VARCHAR},
+      comfort = #{record.comfort,jdbcType=VARCHAR},
+      peak_load_condition = #{record.peakLoadCondition,jdbcType=VARCHAR},
+      average_full_load_operation = #{record.averageFullLoadOperation,jdbcType=VARCHAR},
+      average_passenger_fares = #{record.averagePassengerFares,jdbcType=VARCHAR},
+      user_id = #{record.userId,jdbcType=VARCHAR},
+      fill_time = #{record.fillTime,jdbcType=TIMESTAMP},
+      remark = #{record.remark,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <!--getComfortEconmy-->
+  <select id="getComfortEconmy" resultMap="BaseResultMap" parameterType="com.pub.entity.PtsComfortEconmyExample" >
+    select
+    <include refid="Base_Column_List" />
+    from pts_comfort_econmy
+  </select>
+  <!--getComfortEconmyByUserId-->
+  <select id="getComfortEconmyByUserId" resultMap="BaseResultMap" parameterType="com.pub.entity.PtsComfortEconmyExample" >
+    select
+    <include refid="Base_Column_List" />
+    from pts_comfort_econmy
+    where user_id = #{uid}
+  </select>
+</mapper>

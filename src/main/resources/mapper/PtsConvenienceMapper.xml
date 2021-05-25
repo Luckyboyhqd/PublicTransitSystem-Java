@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pub.dao.PtsConvenienceMapper" >
+  <resultMap id="BaseResultMap" type="com.pub.entity.PtsConvenience" >
+    <result column="id" property="id" jdbcType="VARCHAR" />
+    <result column="departure_interval" property="departureInterval" jdbcType="VARCHAR" />
+    <result column="waiting_time" property="waitingTime" jdbcType="VARCHAR" />
+    <result column="transfer_distance" property="transferDistance" jdbcType="VARCHAR" />
+    <result column="transfer_rate" property="transferRate" jdbcType="VARCHAR" />
+    <result column="average_stop_spacing" property="averageStopSpacing" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="fill_time" property="fillTime" jdbcType="TIMESTAMP" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="convenience" type="com.pub.entity.PtsConvenience" >
+    <result column="id" property="id" jdbcType="VARCHAR" />
+    <result column="departure_interval" property="departureInterval" jdbcType="VARCHAR" />
+    <result column="waiting_time" property="waitingTime" jdbcType="VARCHAR" />
+    <result column="transfer_distance" property="transferDistance" jdbcType="VARCHAR" />
+    <result column="transfer_rate" property="transferRate" jdbcType="VARCHAR" />
+    <result column="average_stop_spacing" property="averageStopSpacing" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+    <association property="rapid" javaType="com.pub.entity.PtsRapidAccurate">
+      <result column="id" property="id" jdbcType="VARCHAR" />
+      <result column="wire_mesh_density" property="wireMeshDensity" jdbcType="VARCHAR" />
+      <result column="bus_accessibility" property="busAccessibility" jdbcType="VARCHAR" />
+      <result column="travel_time_by_bus" property="travelTimeByBus" jdbcType="VARCHAR" />
+      <result column="site_coverage" property="siteCoverage" jdbcType="VARCHAR" />
+      <result column="running_speed" property="runningSpeed" jdbcType="VARCHAR" />
+      <result column="accuracy_rate" property="accuracyRate" jdbcType="VARCHAR" />
+      <result column="user_id" property="userId" jdbcType="VARCHAR" />
+    </association>
+    <association property="comfort" javaType="com.pub.entity.PtsComfortEconmy">
+      <result column="id" property="id" jdbcType="VARCHAR" />
+      <result column="comfort" property="comfort" jdbcType="VARCHAR" />
+      <result column="peak_load_condition" property="peakLoadCondition" jdbcType="VARCHAR" />
+      <result column="average_full_load_operation" property="averageFullLoadOperation" jdbcType="VARCHAR" />
+      <result column="average_passenger_fares" property="averagePassengerFares" jdbcType="VARCHAR" />
+      <result column="user_id" property="userId" jdbcType="VARCHAR" />
+    </association>
+  </resultMap>
+
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, departure_interval, waiting_time, transfer_distance, transfer_rate, average_stop_spacing, 
+    user_id, fill_time, remark
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.pub.entity.PtsConvenienceExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from pts_convenience
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.pub.entity.PtsConvenienceExample" >
+    delete from pts_convenience
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.pub.entity.PtsConvenience" >
+    insert into pts_convenience (id, departure_interval, waiting_time, 
+      transfer_distance, transfer_rate, average_stop_spacing, 
+      user_id, fill_time, remark
+      )
+    values (#{id,jdbcType=VARCHAR}, #{departureInterval,jdbcType=VARCHAR}, #{waitingTime,jdbcType=VARCHAR}, 
+      #{transferDistance,jdbcType=VARCHAR}, #{transferRate,jdbcType=VARCHAR}, #{averageStopSpacing,jdbcType=VARCHAR}, 
+      #{userId,jdbcType=VARCHAR}, #{fillTime,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.pub.entity.PtsConvenience" >
+    insert into pts_convenience
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="departureInterval != null" >
+        departure_interval,
+      </if>
+      <if test="waitingTime != null" >
+        waiting_time,
+      </if>
+      <if test="transferDistance != null" >
+        transfer_distance,
+      </if>
+      <if test="transferRate != null" >
+        transfer_rate,
+      </if>
+      <if test="averageStopSpacing != null" >
+        average_stop_spacing,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="fillTime != null" >
+        fill_time,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="departureInterval != null" >
+        #{departureInterval,jdbcType=VARCHAR},
+      </if>
+      <if test="waitingTime != null" >
+        #{waitingTime,jdbcType=VARCHAR},
+      </if>
+      <if test="transferDistance != null" >
+        #{transferDistance,jdbcType=VARCHAR},
+      </if>
+      <if test="transferRate != null" >
+        #{transferRate,jdbcType=VARCHAR},
+      </if>
+      <if test="averageStopSpacing != null" >
+        #{averageStopSpacing,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="fillTime != null" >
+        #{fillTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.pub.entity.PtsConvenienceExample" resultType="java.lang.Integer" >
+    select count(*) from pts_convenience
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update pts_convenience
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.departureInterval != null" >
+        departure_interval = #{record.departureInterval,jdbcType=VARCHAR},
+      </if>
+      <if test="record.waitingTime != null" >
+        waiting_time = #{record.waitingTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.transferDistance != null" >
+        transfer_distance = #{record.transferDistance,jdbcType=VARCHAR},
+      </if>
+      <if test="record.transferRate != null" >
+        transfer_rate = #{record.transferRate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.averageStopSpacing != null" >
+        average_stop_spacing = #{record.averageStopSpacing,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fillTime != null" >
+        fill_time = #{record.fillTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update pts_convenience
+    set id = #{record.id,jdbcType=VARCHAR},
+      departure_interval = #{record.departureInterval,jdbcType=VARCHAR},
+      waiting_time = #{record.waitingTime,jdbcType=VARCHAR},
+      transfer_distance = #{record.transferDistance,jdbcType=VARCHAR},
+      transfer_rate = #{record.transferRate,jdbcType=VARCHAR},
+      average_stop_spacing = #{record.averageStopSpacing,jdbcType=VARCHAR},
+      user_id = #{record.userId,jdbcType=VARCHAR},
+      fill_time = #{record.fillTime,jdbcType=TIMESTAMP},
+      remark = #{record.remark,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <!--getPtsConveniences-->
+  <select id="getPtsConveniences" resultMap="BaseResultMap" parameterType="com.pub.entity.PtsConvenienceExample" >
+    select
+    <include refid="Base_Column_List" />
+    from pts_convenience
+  </select>
+  <!--getConvenienceByUserId-->
+  <select id="getConvenienceByUserId" resultMap="BaseResultMap" parameterType="com.pub.entity.PtsConvenienceExample" >
+    select
+    <include refid="Base_Column_List" />
+    from pts_convenience
+    where user_id = #{uid}
+  </select>
+
+  <select id="getAllAttribute" resultMap="convenience" >
+    select
+    pc.departure_interval, pc.waiting_time, pc.transfer_distance, pc.transfer_rate, pc.average_stop_spacing,
+    ra.wire_mesh_density, ra.bus_accessibility, ra.travel_time_by_bus, ra.site_coverage, ra.running_speed,
+    ra.accuracy_rate, ce.comfort, ce.peak_load_condition, ce.average_full_load_operation, ce.average_passenger_fares, ce.user_id
+    from pts_convenience pc
+    inner join pts_rapid_accurate ra on pc.user_id = ra.user_id
+    inner join pts_comfort_econmy ce on ra.user_id = ce.user_id
+  </select>
+
+</mapper>

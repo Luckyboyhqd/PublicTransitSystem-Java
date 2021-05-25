@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pub.dao.PtsRapidAccurateMapper" >
+  <resultMap id="BaseResultMap" type="com.pub.entity.PtsRapidAccurate" >
+    <result column="id" property="id" jdbcType="VARCHAR" />
+    <result column="wire_mesh_density" property="wireMeshDensity" jdbcType="VARCHAR" />
+    <result column="bus_accessibility" property="busAccessibility" jdbcType="VARCHAR" />
+    <result column="travel_time_by_bus" property="travelTimeByBus" jdbcType="VARCHAR" />
+    <result column="site_coverage" property="siteCoverage" jdbcType="VARCHAR" />
+    <result column="running_speed" property="runningSpeed" jdbcType="VARCHAR" />
+    <result column="accuracy_rate" property="accuracyRate" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="fill_time" property="fillTime" jdbcType="TIMESTAMP" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, wire_mesh_density, bus_accessibility, travel_time_by_bus, site_coverage, running_speed, 
+    accuracy_rate, user_id, fill_time, remark
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.pub.entity.PtsRapidAccurateExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from pts_rapid_accurate
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.pub.entity.PtsRapidAccurateExample" >
+    delete from pts_rapid_accurate
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.pub.entity.PtsRapidAccurate" >
+    insert into pts_rapid_accurate (id, wire_mesh_density, bus_accessibility, 
+      travel_time_by_bus, site_coverage, running_speed, 
+      accuracy_rate, user_id, fill_time, 
+      remark)
+    values (#{id,jdbcType=VARCHAR}, #{wireMeshDensity,jdbcType=VARCHAR}, #{busAccessibility,jdbcType=VARCHAR}, 
+      #{travelTimeByBus,jdbcType=VARCHAR}, #{siteCoverage,jdbcType=VARCHAR}, #{runningSpeed,jdbcType=VARCHAR}, 
+      #{accuracyRate,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{fillTime,jdbcType=TIMESTAMP}, 
+      #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.pub.entity.PtsRapidAccurate" >
+    insert into pts_rapid_accurate
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="wireMeshDensity != null" >
+        wire_mesh_density,
+      </if>
+      <if test="busAccessibility != null" >
+        bus_accessibility,
+      </if>
+      <if test="travelTimeByBus != null" >
+        travel_time_by_bus,
+      </if>
+      <if test="siteCoverage != null" >
+        site_coverage,
+      </if>
+      <if test="runningSpeed != null" >
+        running_speed,
+      </if>
+      <if test="accuracyRate != null" >
+        accuracy_rate,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="fillTime != null" >
+        fill_time,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="wireMeshDensity != null" >
+        #{wireMeshDensity,jdbcType=VARCHAR},
+      </if>
+      <if test="busAccessibility != null" >
+        #{busAccessibility,jdbcType=VARCHAR},
+      </if>
+      <if test="travelTimeByBus != null" >
+        #{travelTimeByBus,jdbcType=VARCHAR},
+      </if>
+      <if test="siteCoverage != null" >
+        #{siteCoverage,jdbcType=VARCHAR},
+      </if>
+      <if test="runningSpeed != null" >
+        #{runningSpeed,jdbcType=VARCHAR},
+      </if>
+      <if test="accuracyRate != null" >
+        #{accuracyRate,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="fillTime != null" >
+        #{fillTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.pub.entity.PtsRapidAccurateExample" resultType="java.lang.Integer" >
+    select count(*) from pts_rapid_accurate
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update pts_rapid_accurate
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wireMeshDensity != null" >
+        wire_mesh_density = #{record.wireMeshDensity,jdbcType=VARCHAR},
+      </if>
+      <if test="record.busAccessibility != null" >
+        bus_accessibility = #{record.busAccessibility,jdbcType=VARCHAR},
+      </if>
+      <if test="record.travelTimeByBus != null" >
+        travel_time_by_bus = #{record.travelTimeByBus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.siteCoverage != null" >
+        site_coverage = #{record.siteCoverage,jdbcType=VARCHAR},
+      </if>
+      <if test="record.runningSpeed != null" >
+        running_speed = #{record.runningSpeed,jdbcType=VARCHAR},
+      </if>
+      <if test="record.accuracyRate != null" >
+        accuracy_rate = #{record.accuracyRate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fillTime != null" >
+        fill_time = #{record.fillTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update pts_rapid_accurate
+    set id = #{record.id,jdbcType=VARCHAR},
+      wire_mesh_density = #{record.wireMeshDensity,jdbcType=VARCHAR},
+      bus_accessibility = #{record.busAccessibility,jdbcType=VARCHAR},
+      travel_time_by_bus = #{record.travelTimeByBus,jdbcType=VARCHAR},
+      site_coverage = #{record.siteCoverage,jdbcType=VARCHAR},
+      running_speed = #{record.runningSpeed,jdbcType=VARCHAR},
+      accuracy_rate = #{record.accuracyRate,jdbcType=VARCHAR},
+      user_id = #{record.userId,jdbcType=VARCHAR},
+      fill_time = #{record.fillTime,jdbcType=TIMESTAMP},
+      remark = #{record.remark,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <!--getPtsRapidAccurate-->
+  <select id="getPtsRapidAccurate" resultMap="BaseResultMap" parameterType="com.pub.entity.PtsRapidAccurateExample" >
+    select
+    <include refid="Base_Column_List" />
+    from pts_rapid_accurate
+  </select>
+  <!--getRapidByUserId-->
+  <select id="getRapidByUserId" resultMap="BaseResultMap" parameterType="com.pub.entity.PtsRapidAccurateExample" >
+    select
+    <include refid="Base_Column_List" />
+    from pts_rapid_accurate
+    where user_id = #{uid}
+  </select>
+</mapper>
